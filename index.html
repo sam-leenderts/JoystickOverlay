@@ -7,20 +7,40 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-black">
-    <script>
-      window.addEventListener("gamepadconnected", (e) => {
-        // console.log(
-        //   "Gamepad connected at index %d: %s. %d buttons, %d axes.",
-        //   e.gamepad.index,
-        //   e.gamepad.id,
-        //   e.gamepad.buttons.length,
-        //   e.gamepad.axes.length,
-        // );
-        console.log(
-          "Roll: " + 49.5 * (e.gamepad.axes[0] + 1) + "\n",
-          "Pitch: " + 49.5 * (e.gamepad.axes[0] + 1)
-        );
-      });
-    </script>
+    
+    <div class="text-white">
+      <h1>
+        Connected Joysticks:
+        <br>
+      </h1>
+
+      <p id="Joysticks">
+      </p>
+
+      <p id="Axes">
+
+      </p>
+
+    </div>
   </body>
+  <script>
+    let connectedJoystick;
+    let refreshRate = 50;
+   window.addEventListener("gamepadconnected", (e) => {
+    document.getElementById("Joysticks").innerHTML = "Gamepad connected " + e.gamepad.id;
+   });
+
+  
+   // After looking at the docs a bit more this is super unsafe way of doing this need to review - https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+
+   function getAxes()
+   {
+     var roll =  49.5 * (navigator.getGamepads()[0].axes[0] + 1);
+     var pitch = 49.5 * (navigator.getGamepads()[0].axes[1] + 1);
+    document.getElementById("Axes").innerHTML = "Roll: " + Math.ceil(roll) + "<br> pitch: " + Math.ceil(pitch);
+   }
+   setInterval(getAxes, 1000 / 60 );
+
+ </script>
+
 </html>
