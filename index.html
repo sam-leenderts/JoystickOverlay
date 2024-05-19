@@ -23,19 +23,25 @@
 
       
     </div>
-    <overlay class="flex flex-col w-full h-fit">
-      <div>
-        <h1 class="text-emerald-600 font-semibold text-2xl text-center w-40">ROLL</h1>
+    <overlay class="w-full h-fit flex items-end">
         
-      </div>
-      <div class="p-3 border-solid border-emerald-500 border-2 rounded-3xl w-40 h-40">
-        <box id="firstbox" class="relative block  w-full h-full ">
-
-          <dot id="dotone" class="w-6 h-6 -translate-x-3 -translate-y-3 block rounded-full bg-orange-400 absolute"></dot>
-  
-        </box>
-      </div>
-      
+       
+      <joystick class="mx-4 flex flex-col">
+        <h1 class="text-emerald-600 font-semibold text-2xl text-center w-40">ROLL</h1>    
+        <outer class="p-5 border-solid border-emerald-500 border-2 rounded-3xl w-40 h-40">
+          <inner id="firstbox" class="relative block  w-full h-full ">
+            <dot id="dotone" class="absolute w-6 h-6 -translate-x-3 -translate-y-3 block rounded-full bg-orange-400"></dot>
+          </inner>
+        </outer>
+      </joystick>
+     
+      <throttle class="mx-4 flex">
+        <outer class="p-5 border-solid border-emerald-500 border-2 rounded-3xl w-fit h-40">
+          <inner id="firstbox" class="relative block  w-full h-full ">
+            <dot id="dottwo" class="absolute w-6 h-6 -translate-x-3 -translate-y-3 block rounded-full bg-orange-400"></dot>
+          </inner>
+        </outer>
+      </throttle>
     </overlay>
   </body>
   <script>
@@ -43,13 +49,16 @@
     let refreshRate = 1000;
    window.addEventListener("gamepadconnected", (e) => {
     document.getElementById("Joysticks").innerHTML = "Gamepad connected " + e.gamepad.id;
+
+    
    });
    // After looking at the docs a bit more this is super unsafe way of doing this need to review - https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
 
    function getAxes()
    {
     var roll =  49.5 * (navigator.getGamepads()[0].axes[0] + 1);
-    var pitch = 49.5 * (navigator.getGamepads()[0].axes[1] + 1);;
+    var pitch = 49.5 * (navigator.getGamepads()[0].axes[1] + 1);
+    var throttle = 49.5 * (navigator.getGamepads()[1].axes[2] + 1)
     document.getElementById("Axes").innerHTML =
     "refresh rate: "+ Math.abs(refreshRate) + 
     " hz <br> delay: " + Math.abs(1000 / refreshRate) +  
@@ -57,6 +66,8 @@
     " <br> pitch: " + Math.ceil(pitch);
     document.getElementById("dotone").style.left = roll+"%";
     document.getElementById("dotone").style.top = pitch+"%";
+    document.getElementById("dottwo").style.top = throttle+"%";
+    //console.log(navigator.getGamepads()[1].axes);
    }
    setInterval(getAxes, Math.abs(1000 / refreshRate));
  </script>
