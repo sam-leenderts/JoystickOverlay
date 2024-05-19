@@ -6,7 +6,7 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-black flex">
+  <body class="bg-black p-16 flex">
     
     <div id="info" class="text-white">
       <h1>
@@ -26,31 +26,43 @@
     <overlay class="w-full h-fit flex items-end">
         
        
-      <joystick class="mx-4 flex flex-col">
+      <joystick class="relative mx-4 flex flex-col">
         <h1 class="text-emerald-600 font-semibold text-2xl text-center w-40">ROLL</h1>    
         <outer class="p-5 border-solid border-emerald-500 border-2 rounded-3xl w-40 h-40">
           <inner id="firstbox" class="relative block  w-full h-full ">
             <dot id="dotone" class="absolute w-6 h-6 -translate-x-3 -translate-y-3 block rounded-full bg-orange-400"></dot>
           </inner>
         </outer>
+        <h1 class="absolute left-[-48px] top-[50%] text-emerald-600 font-semibold text-2xl" style="transform: rotate(270deg);">PITCH</h1>
       </joystick>
      
-      <throttle class="mx-4 flex">
+      <throttle class=" relative mx-4 flex">
         <outer class="p-5 border-solid border-emerald-500 border-2 rounded-3xl w-fit h-40">
-          <inner id="firstbox" class="relative block  w-full h-full ">
+          <inner id="firstbox" class="relative block w-full h-full ">
             <dot id="dottwo" class="absolute w-6 h-6 -translate-x-3 -translate-y-3 block rounded-full bg-orange-400"></dot>
           </inner>
         </outer>
+        <h1 class="absolute left-[-72px] top-[40%] text-emerald-600 font-semibold text-2xl" style="transform: rotate(270deg);">THROTTLE</h1>
       </throttle>
+      <matrix class="grid text-emerald-600">
+        <div id="boost" class="font-semibold text-2xl border-solid border-emerald-500 border-2 rounded-3xl w-fit p-2">
+          BOOST
+        </div>
+        
+      </matrix>
+
     </overlay>
+
+
+
   </body>
   <script>
     let connectedJoystick;
-    let refreshRate = 1000;
+    let refreshRate = 60;
    window.addEventListener("gamepadconnected", (e) => {
-    document.getElementById("Joysticks").innerHTML = "Gamepad connected " + e.gamepad.id;
-
-    
+    document.getElementById("Joysticks").innerHTML = document.getElementById("Joysticks").innerHTML +  "\n" + "<br> " + e.gamepad.id;
+     //console.log(navigator.getGamepads()[0].buttons);
+    gameloop();
    });
    // After looking at the docs a bit more this is super unsafe way of doing this need to review - https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
 
@@ -59,16 +71,36 @@
     var roll =  49.5 * (navigator.getGamepads()[0].axes[0] + 1);
     var pitch = 49.5 * (navigator.getGamepads()[0].axes[1] + 1);
     var throttle = 49.5 * (navigator.getGamepads()[1].axes[2] + 1)
+    var boost = navigator.getGamepads()[1].buttons[0].pressed;
+
     document.getElementById("Axes").innerHTML =
     "refresh rate: "+ Math.abs(refreshRate) + 
     " hz <br> delay: " + Math.abs(1000 / refreshRate) +  
     " <br> Roll: " + Math.ceil(roll) + 
-    " <br> pitch: " + Math.ceil(pitch);
+    " <br> pitch: " + Math.ceil(pitch) + 
+    "<br> throttle: " + Math.ceil(throttle);
+
     document.getElementById("dotone").style.left = roll+"%";
     document.getElementById("dotone").style.top = pitch+"%";
     document.getElementById("dottwo").style.top = throttle+"%";
-    //console.log(navigator.getGamepads()[1].axes);
+    
+    if(boost)
+    {
+      document.getElementById("boost").classList.add("bg-emerald-600");
+      document.getElementById("boost").classList.add("text-orange-400");
+      document.getElementById("boost").classList.add("animate-pulse");
+    }else
+    {
+      document.getElementById("boost").classList.remove("bg-emerald-600");
+      document.getElementById("boost").classList.remove("text-orange-400");
+      document.getElementById("boost").classList.remove("animate-pulse");
+    }
+   
    }
-   setInterval(getAxes, Math.abs(1000 / refreshRate));
+
+   function gameloop()
+   {
+      setInterval(getAxes, Math.abs(1000 / refreshRate));
+   }
  </script>
 </html>
