@@ -14,6 +14,10 @@
       addgamepad(e.gamepad);
     }
 
+    function disconnecthandler(e) {
+      removegamepad(e.gamepad);
+    }
+
     function addgamepad(gamepad) {
       var dropdown = document.getElementById("gamepads");
       const o = document.createElement("option");
@@ -21,10 +25,6 @@
       o.setAttribute("id", gamepad.id + gamepad.index);
       o.innerHTML = gamepad.index + " - " + gamepad.id.slice(10);
       dropdown.appendChild(o);
-    }
-
-    function disconnecthandler(e) {
-      removegamepad(e.gamepad);
     }
 
     function removegamepad(gamepad) {
