@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
   </head>
-  <body class="bg-black p-16 flex">
+  <body class="">
     
     <!-- <div id="info" class="text-white">
       <h1>
@@ -23,15 +24,15 @@
 
       
     </div>
-    <overlay class="w-full flex items-center">
-      <joystick class="relative mx-4 flex flex-col">
+    <overlay>
+      <joystick>
         <h1 class="absolute -top-8 text-emerald-300 font-semibold text-2xl text-center w-40">ROLL</h1>    
-        <outer class="p-5 border-solid border-emerald-500 border-2 rounded-3xl w-40 h-40">
-          <inner id="firstbox" class="relative block w-full h-full">
+        <outer>
+          <inner id="firstbox">
             <dot id="dotone" class="absolute w-6 h-6 -translate-x-3 -translate-y-3 block rounded-full bg-emerald-300"></dot>
           </inner>
         </outer>
-        <h1 class="absolute left-[-48px] top-[40%] text-emerald-300 font-semibold text-2xl" style="transform: rotate(270deg);">PITCH</h1>
+        <h1 class="text-emerald-300 font-semibold text-2xl" style="transform: rotate(270deg);">PITCH</h1>
       </joystick>
      
       <throttle class=" relative mx-4 flex">
@@ -42,7 +43,7 @@
         </outer>
         <h1 class="absolute left-[-72px] top-[40%] text-emerald-300 font-semibold text-2xl" style="transform: rotate(270deg);">THROTTLE</h1>
       </throttle>
-      <matrix class="grid content-center gap-1 h-full text-emerald-300">
+      <matrix class="grid content-center gap-2 h-full text-emerald-300">
         
         <button id="gear" class="font-semibold text-2xl border-solid border-emerald-500 border-2 rounded-3xl w-full py-1 px-3">
           LANDING GEAR

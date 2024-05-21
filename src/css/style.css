@@ -1,0 +1,44 @@
+body {
+  background-color: black;
+}
+
+overlay {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+joystick {
+  display: flex;
+  margin-left: 16px;
+  margin-right: 16px;
+  position: relative;
+
+  outer {
+    padding: 1.25rem;
+    border-style: solid;
+    border-color: #10b981;
+    border-width: 2px;
+    border-radius: 1.125rem;
+    width: 10rem;
+    height: 10rem;
+    display: flex;
+  }
+
+  inner {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  dot {
+    position: absolute;
+    width: 1.5rem; /* equivalent to w-6 */
+    height: 1.5rem; /* equivalent to h-6 */
+    display: block; /* equivalent to block */
+    border-radius: 9999px; /* equivalent to rounded-full */
+    background-color: #6ee7b7; /* equivalent to bg-emerald-300 */
+    transform: translate(-12px,-12px);
+  }
+}
