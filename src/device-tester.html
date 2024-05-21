@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html class="text-white" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devcie tester</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <select name="gamepads" id="gamepads"></select>
+  </body>
+  <script>
+    function connecthandler(e) {
+      addgamepad(e.gamepad);
+    }
+
+    function addgamepad(gamepad) {
+      var dropdown = document.getElementById("gamepads");
+      const o = document.createElement("option");
+      o.setAttribute("value",  gamepad.index);
+      o.setAttribute("id", gamepad.id + gamepad.index);
+      o.innerHTML = gamepad.index + " - " + gamepad.id.slice(10);
+      dropdown.appendChild(o);
+    }
+
+    function disconnecthandler(e) {
+      removegamepad(e.gamepad);
+    }
+
+    function removegamepad(gamepad) {
+      document.getElementById("gamepads").removeChild(document.getElementById(gamepad.id + gamepad.index));
+    }
+
+    window.addEventListener("gamepadconnected", connecthandler);
+    window.addEventListener("gamepaddisconnected", disconnecthandler);
+  </script>
+
+  <style>
+    body{
+      padding: 16px;
+    }
+  </style>
+</html>
