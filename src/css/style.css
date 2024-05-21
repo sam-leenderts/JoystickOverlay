@@ -1,18 +1,42 @@
 body {
   background-color: black;
+  padding: 32px;
 }
 
 overlay {
   display: flex;
   width: 100%;
-  align-items: center;
+  align-items: end;
 }
 
 joystick {
-  display: flex;
+  display: grid;
   margin-left: 16px;
   margin-right: 16px;
   position: relative;
+  height: fit-content;
+  grid-auto-flow: column;
+  align-items: center;
+
+  .left-wall
+  {
+    color: #6ee7b7;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 1.5rem;
+    grid-row-start: 2; 
+    font-weight: 600; 
+  }
+
+  .top-wall
+  {
+    color: #6ee7b7;
+    font-size: 1.5rem;
+    grid-column-start: 2; 
+    align-content: center;
+    text-align: center;
+    font-weight: 600; 
+  }
 
   outer {
     padding: 1.25rem;
